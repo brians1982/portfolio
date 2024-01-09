@@ -150,21 +150,53 @@ model.StaticStep(name='Bending', previous='Initial')
     # field='', localCsys=None, name='Force', 
     # region=model.rootAssembly.sets['Force'])
 
-#Shear traction
-#Points defining direction vector
-v1 = instance.vertices.findAt((p3[0], p3[1], 0))
-v2 = instance.vertices.findAt((p2[0], p2[1], 0)) 
-#Create traction   
-model.SurfaceTraction(createStepName='Bending', 
-    directionVector=(v1, v2, distributionType=UNIFORM, 
-    field='', localCsys=None, magnitude=1000.0, 
-    name='SurfTraction', region=model.rootAssembly.surfaces['Traction'])
 
 #Fixed BC    
 model.DisplacementBC(amplitude=UNSET, createStepName='Initial', 
     distributionType=UNIFORM, fieldName='', localCsys=None, name='Fixed', 
     region=model.rootAssembly.sets['Fixed'], u1=SET, u2=SET, 
     ur3=UNSET)
+
+
+#Create Datum at midpoint of free edge, store ID    
+v1 = instance.vertices.findAt((p3[0], p3[1], 0))
+v2 = instance.vertices.findAt((p2[0], p2[1], 0))
+model.rootAssembly.DatumPointByMidPoint(point1=v1, point2=v2)
+datum_id=model.rootAssembly.datums.keys()[-1]
+
+#Create Reference Point, store ID 
+model.rootAssembly.ReferencePoint(point=model.rootAssembly.datums[datum_id])
+rp_id=model.rootAssembly.referencePoints.keys()[-1]
+
+#Reference Pt Set    
+model.rootAssembly.Set(name='RefPt', referencePoints=(
+    model.rootAssembly.referencePoints[rp_id], ))
+
+#Distributed Coupling to RP    
+model.Coupling(controlPoint=model.rootAssembly.sets['RefPt'],
+    couplingType=DISTRIBUTING, influenceRadius=WHOLE_SURFACE,
+    localCsys=None, name='Coupling', surface=
+    model.rootAssembly.surfaces['Traction'], u1=ON, u2=ON, ur3=ON, 
+    weightingMethod=UNIFORM)
+
+#Apply load   
+model.ConcentratedForce(cf2=-1000.0, createStepName=
+    'Bending', distributionType=UNIFORM, field='', localCsys=None, name=
+    'BendLoad', region=model.rootAssembly.sets['RefPt'])   
+    
+    
+
+
+# #Shear traction
+# #Points defining direction vector
+# v1 = instance.vertices.findAt((p3[0], p3[1], 0))
+# v2 = instance.vertices.findAt((p2[0], p2[1], 0))
+
+# #Create traction
+# model.SurfaceTraction(createStepName='Bending', 
+    # directionVector=(v1, v2), distributionType=UNIFORM, 
+    # field='', localCsys=None, magnitude=1000.0, name='Traction', 
+    # region=model.rootAssembly.surfaces['Traction'])
 
 #Set element types
 region1=instance.faces.findAt((p1[0], p1[1], 0))
@@ -178,6 +210,27 @@ model.rootAssembly.setMeshControls(algorithm=MEDIAL_AXIS,
     elemShape=QUAD, 
     regions=instance.faces[region1.index:region1.index+1])
 
+
+    
+#Local seed on fillet
+region1=instance.edges.findAt((p5[0],p5[1]-1e-5,0))   
+model.rootAssembly.seedEdgeByNumber(constraint=FINER, edges=
+    instance.edges[region1.index:region1.index+1], number=10)
+# model.rootAssembly.seedEdgeBySize(constraint=FINER, 
+    # deviationFactor=0.1, 
+    # edges=instance.edges[region1.index:region1.index+1], 
+    # minSizeFactor=0.1, size=filletsize)
+    
+#Local seed on hole
+region1=instance.edges.findAt((p9[0],p9[1],0))   
+model.rootAssembly.seedEdgeByNumber(constraint=FINER, edges=
+    instance.edges[region1.index:region1.index+1], number=20)    
+# model.rootAssembly.seedEdgeBySize(constraint=FINER, 
+    # deviationFactor=0.1, 
+    # edges=instance.edges[region1.index:region1.index+1], 
+    # minSizeFactor=0.1, size=holesize)
+    
+    
 #Fifty opportunities to get below 1000 nodes - Model limitation
 #Gradually increase mesh seed sizes until reached
 for _ in range(50):
@@ -185,21 +238,7 @@ for _ in range(50):
     model.rootAssembly.seedPartInstance(deviationFactor=0.1, 
         minSizeFactor=0.1, 
         regions=(instance, ), size=globalsize)
-    
-    #Local seed on fillet
-    region1=instance.edges.findAt((p5[0],p5[1]-1e-5,0))   
-    model.rootAssembly.seedEdgeBySize(constraint=FINER, 
-        deviationFactor=0.1, 
-        edges=instance.edges[region1.index:region1.index+1], 
-        minSizeFactor=0.1, size=filletsize)
-        
-    #Local seed on hole
-    region1=instance.edges.findAt((p9[0],p9[1],0))       
-    model.rootAssembly.seedEdgeBySize(constraint=FINER, 
-        deviationFactor=0.1, 
-        edges=instance.edges[region1.index:region1.index+1], 
-        minSizeFactor=0.1, size=holesize)
-        
+
     #Crate mesh
     model.rootAssembly.generateMesh(regions=(instance, ))
     
@@ -207,17 +246,15 @@ for _ in range(50):
         break
     else:
         model.rootAssembly.deleteMesh(regions=(instance, ))
-        holesize = holesize * 1.01
-        filletsize = filletsize * 1.001
         globalsize = globalsize * 1.025
-        print globalsize, holesize, filletsize
+        
     
 
 
 mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
     explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
-    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, name=
-    'Beam_bending', nodalOutputPrecision=SINGLE, queue=None, resultsFormat=ODB, 
+    memory=90, memoryUnits=PERCENTAGE, model=modelname, modelPrint=OFF, name=
+    jobname, nodalOutputPrecision=SINGLE, queue=None, resultsFormat=ODB, 
     scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
 
 
