@@ -1,14 +1,27 @@
-**FEA Surrogate Demonstration**
+# FEA Surrogate Demonstration
 
-This FEA Surrogate example goes through the steps of: 
-  1. Defining parameter definitions and parameter sets for model generation
-  2. Creating a parametric FEA model with Abaqus scripting in Python
-  3. Solving the models and extracting stress results
-  4. Processing stresses to get uniform locations
-  5. Training a Neural Network and checking the results
+### This FEA Surrogate example goes through the steps of: 
 
-Files:
-  1. <code>Generate_TrainingModels.ipynb</code> Creates sets of model parameters using random generators and saves to CSV
-  2. <code>beamscript.py</code> Creates Abaqus CAE models and Input Decks for solving
-  3. <code>ExtractStress.py</code> Performs Nodal averaging and extracts stress results from results files
-  4. <code>Normalize_and_Train.ipynb</code> Normalizes stress positions along fillet and trains Neural Network
+#### Defining parameter definitions and parameter sets for model generation
+<code>Generate_TrainingModels.ipynb</code>
+The parametric model defintion is shown below.  Random number generators select the dimensions within specified ranges and conforming to uniform distributions.  THe model definitions are saved to a CSV file.
+![Dimensions](Dimensions.png)
+  
+#### Creating a parametric FEA model with Abaqus scripting in Python
+<code>beamscript.py</code>
+
+*Note, the FEA models are limited to 1000 nodes, so Plane Stress assumptions and coarser meshes are used.*
+
+    
+#### Solving the models and extracting stress results
+*See the Abaqus_queue folder for the script.
+Jobs are submitted two at a time, until all have been solved.
+     
+#### Processing stresses to get uniform locations
+<code>ExtractStress.py</code> 
+
+
+     
+#### Training a Neural Network and checking the results
+<code>Normalize_and_Train.ipynb</code>
+
