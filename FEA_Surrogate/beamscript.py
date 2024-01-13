@@ -41,6 +41,11 @@ def create_model(inputs):
 
     #Create Model object and set Options
     model = mdb.Model(name=modelname)
+    
+    #Clear default model name
+    if 'Model-1' in mdb.models.keys():
+        del mdb.models['Model-1']
+    
     model.setValues(noPartsInputFile=ON)
 
     #Create Sketch
@@ -156,12 +161,6 @@ def create_model(inputs):
     #Create load step
     model.StaticStep(name='Bending', previous='Initial')
 
-    # model.ConcentratedForce(cf2=-1000.0, createStepName='Bending', 
-        # distributionType=UNIFORM, 
-        # field='', localCsys=None, name='Force', 
-        # region=model.rootAssembly.sets['Force'])
-
-
     #Fixed BC    
     model.DisplacementBC(amplitude=UNSET, createStepName='Initial', 
         distributionType=UNIFORM, fieldName='', localCsys=None, name='Fixed', 
@@ -195,19 +194,6 @@ def create_model(inputs):
         'Bending', distributionType=UNIFORM, field='', localCsys=None, name=
         'BendLoad', region=model.rootAssembly.sets['RefPt'])   
         
-        
-
-
-    # #Shear traction
-    # #Points defining direction vector
-    # v1 = instance.vertices.findAt((p3[0], p3[1], 0))
-    # v2 = instance.vertices.findAt((p2[0], p2[1], 0))
-
-    # #Create traction
-    # model.SurfaceTraction(createStepName='Bending', 
-        # directionVector=(v1, v2), distributionType=UNIFORM, 
-        # field='', localCsys=None, magnitude=1000.0, name='Traction', 
-        # region=model.rootAssembly.surfaces['Traction'])
 
     #Set element types
     region1=instance.faces.findAt((p1[0], p1[1], 0))
@@ -227,11 +213,7 @@ def create_model(inputs):
     region1=instance.edges.findAt((p5[0],p5[1]-1e-5,0))   
     model.rootAssembly.seedEdgeByNumber(constraint=FINER, edges=
         instance.edges[region1.index:region1.index+1], number=10)
-    # model.rootAssembly.seedEdgeBySize(constraint=FINER, 
-        # deviationFactor=0.1, 
-        # edges=instance.edges[region1.index:region1.index+1], 
-        # minSizeFactor=0.1, size=filletsize)
-        
+
     #Local seed on hole
     region1=instance.edges.findAt((p9[0],p9[1],0))   
     model.rootAssembly.seedEdgeByNumber(constraint=FINER, edges=
@@ -260,15 +242,18 @@ def create_model(inputs):
             globalsize = globalsize * 1.025
             
         
+    #clear any old jobs
+    for j in mdb.jobs.keys():
+        del mdb.jobs[j]
 
-
+    #Define current job options
     mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
         explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
         memory=90, memoryUnits=PERCENTAGE, model=modelname, modelPrint=OFF, name=
         jobname, nodalOutputPrecision=SINGLE, queue=None, resultsFormat=ODB, 
         scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
 
-
+    #Save and write input
     mdb.saveAs(caename) 
     mdb.jobs[jobname].writeInput()
 
