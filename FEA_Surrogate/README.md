@@ -3,8 +3,8 @@ FEA Surrogate Neural Networks take some work to set up, but they can provide tre
 - A closed form solution does not exist
 - The error introduced is acceptable
 - The Surrogate will be excercised numerous times
+- The rapid evaulation of the Surrogate saves meaningufl time over FEA iterations
 When set up well, FEA surrogates provide an excellent way to explore design spaces, and can dramatically speed up design optimation by replacing FEA.
-
 
 ### This FEA Surrogate example goes through the steps of: 
 
@@ -35,10 +35,10 @@ Stress results are saved in Odb files.  The Element Nodal stresses are averaged 
 #### Training a Neural Network and checking the results
 <code>Normalize_and_Train.ipynb</code>
 
-Since the Neural Network requires consistent input and output, the stresses are interpolated to a set number of points along a path in the fillet.  See the contour plot above for the path definition.  For each model, a SciPy 1d interpolator is fit to the fillet stress.  The stress is then interpolated to 50 evenly spaced points along the path and used for training outputs.
+Since the Neural Network requires consistent input and output, the stresses are interpolated to a set number of points along a path in the fillet.  See the contour plot above for the path definition.  For each model, a SciPy 1d interpolator is fit to the stress along the fillet, shown above.  The stress is then interpolated to 50 evenly spaced points along the path and used for training outputs.
 Additional Features are created from the model dimensions, including the Ligament thickness, the length of the beam beyond the fillet, and ratios of L3/L1, R1/R2, and R1/L1.  The Neural Network is trained and plots are created to check the accuracy of the predictions.
 
-Now that the FEA Surrogate is trained, it may be used to search the design space by evaulating grids of design points, or included in an optimization routine, such as **scipy.optimize.minimize**.
+Now that the FEA Surrogate is trained, it may be used to search the design space by evaulating grids of design points, or included in an optimization routine, such as **scipy.optimize.minimize**.  For example, I have used scipy.optimize.minimize to minimize an assembly's weight, and a surrogate model to evaluate a stress constraint for a quick-turnaround preliminary design.
 
 ![Metrics](Metrics.png)
 
