@@ -17,13 +17,14 @@ import time
 
 def create_model(inputs):
     #inputs is a dictionary:
-    #{'jobid': 'model0002', 'L1': 4.4968, 'L2': 5.8491, 'L3': 1.6841, 'L5': 2.3112, 'R1': 2.8127, 'R2': 0.6926}
+    #{'jobid': 'model0002', 'L1': 4.4968, 'L2': 5.8491, 'L3': 1.6841, 'L4': 2.3112, 'H1':1.2345, 'R1': 2.8127, 'R2': 0.6926}
     
     jobid = inputs['jobid']
     L1 = inputs['L1']
     L2 = inputs['L2']
     L3 = inputs['L3']
-    L5 = inputs['L5']
+    L4 = inputs['L4']
+    H1 = inputs['H1']
     R1 = inputs['R1']
     R2 = inputs['R2']
     
@@ -55,18 +56,18 @@ def create_model(inputs):
     p1 = (0.0, 0.0)
     p2 = (L2, 0.0)
     p3 = (L2, L3)
-    p4 = (L5+R1, L3)
-    p5 = (L5, L1)
+    p4 = (L4+R1, L3)
+    p5 = (L4, L1)
     p6 = (0.0, L1)
 
     #Arc center
-    p7 = (L5+R1, L1)
+    p7 = (L4+R1, L1)
 
     #Hole ctr
-    p8 = (L5, 0.5*L3)
+    p8 = (L4, H1)
 
     #Pt on hole edge
-    p9 = (L5+R2, 0.5*L3)
+    p9 = (L4+R2, H1)
 
     #Create lines and arc connection points; create hole as well
     Line1 = sketch.Line(point1=p1, point2=p6) 
@@ -270,9 +271,9 @@ src.close()
 modeldata={}
 
 #Header and example lines:
-# jobid,L1,L2,L3,L5,R1,R2
-# model0000,4.2528,5.1383,2.4272,1.6085,1.8256,0.3163
-# model0001,5.3116,5.5728,3.0138,3.2057,2.2978,0.5371
+# jobid,L1,L2,L3,L4,H1,R1,R2
+# model0000,4.2528,5.1383,2.4272,1.6085,2.6192,1.8256,0.3057
+# model0001,4.0728,7.0055,2.7165,2.9818,2.7783,1.3563,0.2710
 
 for line in lines:
     line=line.strip()
