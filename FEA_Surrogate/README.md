@@ -1,17 +1,19 @@
 # FEA Surrogate Demonstration
+This example demonstrates the prediction of stresses in a region of a beam with a stress concentration and a nearby hole subjected to bending.  The hole interacts with the stress concentration. Both geometries by themselves are similar to examples in Roark or Peterson, but the interaction adds complexity.  The example attempts to train a neural network to learn the interaction behavior.
+
 FEA Surrogate Neural Networks take some work to set up, but they can provide tremendous speed improvement compared to traditional FEA.  That said, there are certain times when Surrogates are worth the effort, including when:
 - A closed form solution does not exist
 - The error introduced is acceptable
-- The Surrogate will be excercised numerous times
-- The rapid evaulation of the Surrogate saves meaningufl time over FEA iterations
+- The Surrogate will be exercised numerous times
+- The rapid evaluation of the Surrogate saves meaningful time over FEA iterations
 
-When set up well, FEA surrogates provide an excellent way to explore design spaces, and can dramatically speed up design optimation by replacing FEA.
+When set up well, FEA surrogates provide an excellent way to explore design spaces, and can dramatically speed up design optimization by replacing FEA.
 
 ### This FEA Surrogate example goes through the steps of: 
 
 #### Defining parameter definitions and parameter sets for model generation
 <code>Generate_TrainingModels.ipynb</code>
-The parametric model defintion is shown below.  This Jupyter Notebook uses random number generators to select the dimensions within specified ranges, conforming to uniform distributions.  The model definitions are saved to a CSV file.
+The parametric model definition is shown below.  This Jupyter Notebook uses random number generators to select the dimensions within specified ranges, conforming to uniform distributions.  The model definitions are saved to a CSV file.
 
 ![Dimensions](Dimensions.png)
   
@@ -42,6 +44,6 @@ Since the Neural Network requires consistent input and output, the stresses are 
 
 Additional Features are created from the model dimensions, including the Ligament thickness, the length of the beam beyond the fillet, and ratios of L3/L1, R1/R2, and R1/L1.  The Neural Network is trained and plots are created to check the accuracy of the predictions.
 
-Now that the FEA Surrogate is trained, it may be used to search the design space by evaulating grids of design points, or included in an optimization routine, such as **scipy.optimize.minimize**.  For example, I have used scipy.optimize.minimize to minimize an assembly's weight, with a FEA Surrogate model that provided input to a stress constraint.  This allowed system-level refinement during a preliminary design phase that would not have been possible with traditional FEA.
+Now that the FEA Surrogate is trained, it may be used to search the design space by evaluating grids of design points, or included in an optimization routine, such as **scipy.optimize.minimize**.  For example, I have used scipy.optimize.minimize to minimize an assembly's weight, with a FEA Surrogate model that provided input to a stress constraint.  This allowed system-level refinement during a preliminary design phase that would not have been possible with traditional FEA.
 
 ![Metrics](Metrics.png)
