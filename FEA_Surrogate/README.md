@@ -24,7 +24,7 @@ This Python script runs Abaqus CAE and creates the training FEA models from the 
 
 Each model has the same downward load applied to the right edge of the geometry, and has the left edge fixed.
 
-![Training Models](Training.png)
+![Training Models](Training_models.png)
     
 #### Solving the models and extracting stress results
 *See the Abaqus_queue folder for the script.*
