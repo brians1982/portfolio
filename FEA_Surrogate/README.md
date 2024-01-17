@@ -51,5 +51,7 @@ Now that the FEA Surrogate is trained, it may be used to search the design space
 
 ![Metrics](Metrics.png)
 
-####References
-- 
+#### References
+- Saaedi, Mehrdad. Predicting the Cancer Tumor Position in Liver Using Finite Element Analysis (FEA) and Artificial Intelligence (AI). 2021.
+- Géron, Aurélien. Hands-on Machine Learning with Scikit-Learn, Keras and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems. 2nd ed., O’Reilly, 2019.
+- ABAQUS/Standard User’s Manual, Version 2023. Dassault Systemes Simulia Corp, United States, 2023. [3ds Simulia](https://www.3ds.com/products/simulia/abaqus).
