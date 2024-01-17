@@ -15,7 +15,7 @@ When set up well, FEA surrogates provide an excellent way to explore design spac
 <code>Generate_TrainingModels.ipynb</code>
 The parametric model definition is shown below.  This Jupyter Notebook uses random number generators to select the dimensions within specified ranges, conforming to uniform distributions.  The model definitions are saved to a CSV file.
 
-![Dimensions](Dimensions.png)
+![Dimensions](Setup.png)
   
 #### Creating a parametric FEA model with Abaqus scripting in Python
 <code>beamscript.py</code>
@@ -42,7 +42,8 @@ Stress results are saved in Odb files.  The Element Nodal stresses are averaged 
 <code>Normalize_and_Train.ipynb</code>
 Since the Neural Network requires consistent input and output, the stresses are interpolated to a set number of points along a path in the fillet.  See the contour plot above for the path definition.  For each model, a SciPy 1d interpolator is fit to the stress along the fillet, shown above.  The stress is then interpolated to 50 evenly spaced points along the path and used for training outputs.
 
-Additional Features are created from the model dimensions, including the Ligament thickness, the length of the beam beyond the fillet, and ratios of L3/L1, R1/R2, and R1/L1.  The Neural Network is trained and plots are created to check the accuracy of the predictions.
+Additional Features are created from the model dimensions, including the Ligament thickness, the length of the beam beyond the fillet (L5), and ratios of L3/L1, R1/R2, and R1/L1.  The Neural Network is trained and plots are created to check the accuracy of the predictions.
+![Features](Features.png)
 
 Now that the FEA Surrogate is trained, it may be used to search the design space by evaluating grids of design points, or included in an optimization routine, such as **scipy.optimize.minimize**.  For example, I have used scipy.optimize.minimize to minimize an assembly's weight, with a FEA Surrogate model that provided input to a stress constraint.  This allowed system-level refinement during a preliminary design phase that would not have been possible with traditional FEA.
 
