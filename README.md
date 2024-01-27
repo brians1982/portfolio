@@ -1,5 +1,4 @@
 # Brian Shula's Coding Portfolio
-A selection of my projects
 
 I have selected several of my Python projects to showcase.  The projects fall into several categories, including AI/ML, Abaqus scripting, and general uses of Python for fun.
 
