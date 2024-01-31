@@ -13,6 +13,7 @@ When set up well, FEA surrogates provide an excellent way to explore design spac
 
 #### Defining parameter definitions and parameter sets for model generation
 <code>Generate_TrainingModels.ipynb</code>
+
 The parametric model definition is shown below.  This Jupyter Notebook uses random number generators to select the dimensions within specified ranges, conforming to uniform distributions.  The model definitions are saved to a CSV file.
 
 ![Dimensions](Setup.png)
@@ -29,18 +30,20 @@ Each model has the same downward load applied to the right edge of the geometry,
 ![Training Models](Training_models.png)
     
 #### Solving the models and extracting stress results
-*See the Abaqus_queue folder for the script.*
+*See the [Abaqus_queue folder](https://github.com/brians1982/portfolio/tree/main/Abaqus_queue) for the script.*
 
 Jobs are submitted two at a time, until all have been solved.
      
-#### Processing stresses to get uniform locations
+#### Extracting stresses and performing nodal averaging
 <code>ExtractStress.py</code> 
-Stress results are saved in Odb files.  The Element Nodal stresses are averaged to get Nodal stresses.  Then, stresses for nodes in the fillet and nodal coordinates are written to another CSV file.  
+
+Stress results are stored in Odb files.  The Element Nodal stresses are averaged to get Nodal stresses.  Then, stresses for nodes in the fillet and nodal coordinates are written to another CSV file.  
 
 ![Stress contour](ContourPath.png)
      
-#### Training a Neural Network and checking the results
-<code>Normalize_and_Train.ipynb</code>
+#### Stress interpolation to uniform locations, Neural Network training, and model evaluation
+<code>Normalize_and_Train.ipynb</code> and <code>Normalize_and_Train_PyTorch.ipynb</code> TensorFlow and PyTorch implementations of very similar neural netorks.
+
 Since the Neural Network requires consistent input and output, the stresses are interpolated to a set number of points along a path in the fillet.  See the contour plot above for the path definition.  For each model, a SciPy 1d interpolator is fit to the stress along the fillet, shown above.  The stress is then interpolated to 50 evenly spaced points along the path and used for training outputs.
 
 Additional Features are created from the model dimensions, including the Ligament thickness, the length of the beam beyond the fillet (L5), and ratios of L3/L1, R1/R2, and R1/L1.  The Neural Network is trained and plots are created to check the accuracy of the predictions.
