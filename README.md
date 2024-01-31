@@ -1,6 +1,6 @@
 # Brian Shula's Coding Portfolio
 
-I have selected several of my Python projects to showcase.  The projects fall into several categories, including FEA Surrogates via Neural Networks, AI/ML, Abaqus scripting, and general uses of Python for fun.
+I have selected several of my Python projects to showcase.  The projects fall into several categories, including FEA Surrogates via Neural Networks, CAE Automation, AI/ML, and general uses of Python for fun.
 
 Be sure to browse the project folders:
 1. **[FEA_Surrogate](https://github.com/brians1982/portfolio/tree/main/FEA_Surrogate)** - This example shows the steps to crate a FEA Surrogate neural network using Abaqus scripting.  Neural Networks are trained using TensorFlow and PyTorch.
