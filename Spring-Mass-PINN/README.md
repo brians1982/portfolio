@@ -11,7 +11,9 @@ where m = 1.0 lb and k = 1 lb/ft.
 Initial Conditions:
 
 u(0) = 2, u'(0) = 0
-# 
-<code>Spring_Mass_TensorFlow.ipynb</code> contains the PINN set up using TensorFlow.
+### Model Setup and Evaluation 
+<code>Spring_Mass_TensorFlow.ipynb</code> contains the PINN set up using <b>TensorFlow</b>.
+
+<code>Spring_Mass_PyTorch.ipynb</code> contains the PINN set up using <b>PyTorch</b>.
 
 ![Spring-Mass-Damper System](SpringMass.png)
