@@ -1,6 +1,6 @@
 # Brian Shula's Python & Machine Learning Portfolio
 
-Connect with me on [LinkedIn.](https://www.linkedin.com/in/brianshula/)
+Connect with me on [LinkedIn](https://www.linkedin.com/in/brianshula/)
 
 I have selected several of my Python projects to showcase.  The projects fall into several categories, including FEA Surrogates via Neural Networks, CAE Automation, AI/ML, and general uses of Python for fun.
 
