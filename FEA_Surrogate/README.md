@@ -1,5 +1,5 @@
 # FEA Surrogate Demonstration
-This example demonstrates the prediction of stresses in a region of a beam with a stress concentration and a nearby hole subjected to bending.  The hole interacts with the stress concentration. Both geometries by themselves are similar to examples in Roark or Peterson, but the interaction adds complexity.  The example attempts to train a neural network to learn the interaction behavior.  Very similar neural networks are built with TensorFlow and PyTorch.
+This example demonstrates the prediction of stresses in a region of a beam with a stress concentration and a nearby hole subjected to bending.  The hole interacts with the stress concentration. Both geometries by themselves are similar to examples in Roark or Peterson, but the interaction adds complexity.  The example attempts to train a neural network to learn the interaction behavior.  Very similar neural networks are built with <b>TensorFlow</b> and <b>PyTorch</b>.
 
 FEA Surrogate Neural Networks take some work to set up, but they can provide tremendous speed improvement compared to traditional FEA.  That said, there are certain times when Surrogates are worth the effort, including when:
 - A closed form solution does not exist
