@@ -4,4 +4,14 @@
 
 ![Model setup](Fin_Setup.png)
 
-![Model results](contours.png)
+# Comparison of PINN Prediction and FEA Ground Truth
+
+## 10 Seconds
+![Model results](contours1.png)
+
+
+## 50 Seconds
+![Model results](contours0.png)
+
+## 3600 Seconds
+![Model results](contours2.png)
