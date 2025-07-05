@@ -42,6 +42,9 @@ Stress results are stored in Odb files.  The Element Nodal stresses are averaged
 ![Stress contour](ContourPath.png)
      
 #### Stress interpolation to uniform locations, Neural Network training, and model evaluation
+
+Note: The examples here use interpolation to create targets with consistent lengths for disimilar meshes.  An alternative approach is to add the distance parameter along the fillet as an input, and predict output(s) corresponding to that location.
+
 <code>Normalize_and_Train.ipynb</code> and <code>Normalize_and_Train_PyTorch.ipynb</code> TensorFlow and PyTorch implementations of very similar neural netorks.
 
 Since the Neural Network requires consistent input and output, the stresses are interpolated to a set number of points along a path in the fillet.  See the contour plot above for the path definition.  For each model, a SciPy 1d interpolator is fit to the stress along the fillet, shown above.  The stress is then interpolated to 50 evenly spaced points along the path and used for training outputs.
