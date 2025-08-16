@@ -1,6 +1,6 @@
 # FEA Surrogate Demonstration with a MeshGraphNet
 
-This example adapts the MeshGraphNet framework from this Medium article, [Learning Mesh-Based Flow Simulations on Graph Networks](https://medium.com/stanford-cs224w/learning-mesh-based-flow-simulations-on-graph-networks-44983679cf2d). 
+This example adapts the MeshGraphNet framework from this Medium article, [Learning Mesh-Based Flow Simulations on Graph Networks](https://medium.com/stanford-cs224w/learning-mesh-based-flow-simulations-on-graph-networks-44983679cf2d) for prediction of multiple stress components on disimilar meshes.
 
 Data for the MeshGraphNet is prepared using notebook <code>Graph_DataPrep.ipynb</code>.  The ground truth data is taken from the [parametric model](https://github.com/brians1982/portfolio/tree/main/FEA_Surrogate) used in other surrogate models.  The FEA mesh information is adapted to node and edge attribute definitions, and a node connectivity definition.  Additional features, such as node distance to the nearest edge, are also calculated.  The data is written to a PyTorch Geometric data entity for use by the MeshGraphNet.
 
