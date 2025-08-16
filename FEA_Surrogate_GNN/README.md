@@ -6,4 +6,4 @@ Data for the MeshGraphNet is prepared using notebook <code>Graph_DataPrep.ipynb<
 
 The MeshGraphNet is updated to produce four outputs for component stresses S11, S22, S12, and the Von Mises stress.  I also use a Custom Loss Function to create a physics-based constraint: the Von Mises stress represents a combination of S11, S22, and S12.  Notebook <code>GNN_Surrogate.ipynb</code> contains the dataloading, model setup, training, and assessment against test data.
 
-
+![GNN Test](GNN_testdata.png)
