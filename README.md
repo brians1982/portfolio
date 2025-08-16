@@ -6,10 +6,11 @@ I have selected several of my Python projects to showcase.  The projects fall in
 
 Be sure to browse the project folders:
 1. **[FEA_Surrogate](https://github.com/brians1982/portfolio/tree/main/FEA_Surrogate)** - This example shows the steps to crate a FEA Surrogate neural network using Abaqus scripting.  Neural Networks are trained using <b>TensorFlow</b> and <b>PyTorch</b>.
-2. **[Heat_Transfer_PINN](https://github.com/brians1982/portfolio/tree/main/Heat_Transfer_PINN)** - A Physics Informed Neural Network is trained on sparse 2d heat transfer FEA data and predicts the cooling of a fin with temperature, convection, and radiation boundary conditions using <b>PyTorch</b>.
-3. **[Spring-Mass-PINN](https://github.com/brians1982/portfolio/tree/main/Spring-Mass-PINN)** - A Physics Informed Neural Network models a spring-mass-damper system described by a second-order ODE. Neural Networks are trained using <b>TensorFlow</b> and <b>PyTorch</b>.
-4. **[Image2Contour](https://github.com/brians1982/portfolio/tree/main/Image2Contour)** - The Notebook generates an Abaqus result that matches an image with color depth reduction via K-Means Clustering. 
-5. **[Abaqus_queue](https://github.com/brians1982/portfolio/tree/main/Abaqus_queue)** - The script batch submission of Abaqus jobs in parallel, and is useful for generating FEA surrogate training data.
-6. **[TemperaturePlot](https://github.com/brians1982/portfolio/tree/main/TemperaturePlot)** - This notebook retrieves temperature data from a NOAA API, performs unstructured interpolation, and plots smooth contours within Maine's boundaries.
-7. **[PitchPrediction](https://github.com/brians1982/portfolio/tree/main/PitchPrediction)** - This Notebook trains a Neural Network to predict the next type of pitch in a baseball game, based on the pitcher and situation. The Neural Network is trained using <b>TensorFlow</b>.
+2. **[MeshGraphNet Surrogate](https://github.com/brians1982/portfolio/tree/main/FEA_Surrogate_GNN)** - This example takes the FEA model from above and trains a MeshGraphNet using <b>PyTorch</b>.
+3. **[Heat_Transfer_PINN](https://github.com/brians1982/portfolio/tree/main/Heat_Transfer_PINN)** - A Physics Informed Neural Network is trained on sparse 2d heat transfer FEA data and predicts the cooling of a fin with temperature, convection, and radiation boundary conditions using <b>PyTorch</b>.
+4. **[Spring-Mass-PINN](https://github.com/brians1982/portfolio/tree/main/Spring-Mass-PINN)** - A Physics Informed Neural Network models a spring-mass-damper system described by a second-order ODE. Neural Networks are trained using <b>TensorFlow</b> and <b>PyTorch</b>.
+5. **[Image2Contour](https://github.com/brians1982/portfolio/tree/main/Image2Contour)** - The Notebook generates an Abaqus result that matches an image with color depth reduction via K-Means Clustering. 
+6. **[Abaqus_queue](https://github.com/brians1982/portfolio/tree/main/Abaqus_queue)** - The script batch submission of Abaqus jobs in parallel, and is useful for generating FEA surrogate training data.
+7. **[TemperaturePlot](https://github.com/brians1982/portfolio/tree/main/TemperaturePlot)** - This notebook retrieves temperature data from a NOAA API, performs unstructured interpolation, and plots smooth contours within Maine's boundaries.
+8. **[PitchPrediction](https://github.com/brians1982/portfolio/tree/main/PitchPrediction)** - This Notebook trains a Neural Network to predict the next type of pitch in a baseball game, based on the pitcher and situation. The Neural Network is trained using <b>TensorFlow</b>.
 
